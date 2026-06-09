@@ -14,7 +14,9 @@ services:
       retries: 5
 
   postgres:
-    image: postgres:15-alpine
+    build:
+      context: ./backend/db
+      dockerfile: Dockerfile
     container_name: docengine-postgres
     environment:
       POSTGRES_USER: docengine
@@ -24,7 +26,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U docengine -d docengine_db"]
