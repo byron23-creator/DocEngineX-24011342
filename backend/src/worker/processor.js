@@ -55,7 +55,8 @@ async function uploadToS3(pdfBuffer, docId, templateType) {
       Key: key,
       Body: pdfBuffer,
       ContentType: 'application/pdf',
-      ACL: 'public-read',
+      // ACLs disabled by default in modern S3 buckets (Object Ownership = Bucket owner enforced).
+      // Public access is granted via Bucket Policy instead.
     })
   );
 
