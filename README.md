@@ -3,6 +3,16 @@
 > Servicio de generación de documentos PDF en segundo plano, con historial público en tiempo real.  
 > Universidad Galileo · Ing. Alejandro Córdova · 2026
 
+<img width="1920" height="1000" alt="Captura de pantalla 2026-06-08 a la(s) 9 52 45 p  m" src="https://github.com/user-attachments/assets/498fa873-1175-43c5-a201-6085d56c8f88" />
+
+<img width="1767" height="1019" alt="Captura de pantalla 2026-06-08 a la(s) 9 55 26 p  m" src="https://github.com/user-attachments/assets/fe2631f0-8c0e-4986-a8f2-8a8c2b65d083" />
+
+<img width="1767" height="1013" alt="Captura de pantalla 2026-06-08 a la(s) 9 55 55 p  m" src="https://github.com/user-attachments/assets/4ca0aeb6-b422-4778-a552-fe44f7c909ad" />
+
+<img width="1777" height="845" alt="Captura de pantalla 2026-06-08 a la(s) 9 56 11 p  m" src="https://github.com/user-attachments/assets/1380604a-5a5a-4535-ac94-86e15a20952b" />
+
+<img width="1765" height="1028" alt="Captura de pantalla 2026-06-08 a la(s) 9 55 35 p  m" src="https://github.com/user-attachments/assets/e96d8878-f1bd-4f78-8cca-86fd950f0da1" />
+
 ---
 
 ## 📦 Stack de Tecnologías
