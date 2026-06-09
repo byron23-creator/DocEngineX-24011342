@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reporte — {{title}}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a1a2e; padding: 48px; }
+
+    .cover { text-align: center; padding: 60px 0 40px; border-bottom: 3px solid #e94560; margin-bottom: 48px; }
+    .cover .label { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: #e94560; margin-bottom: 12px; }
+    .cover h1 { font-size: 32px; font-weight: 700; color: #16213e; margin-bottom: 10px; }
+    .cover .subtitle { font-size: 15px; color: #666; margin-bottom: 24px; }
+    .cover .meta { font-size: 12px; color: #999; }
+
+    h2 { font-size: 18px; color: #16213e; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e94560; }
+    p { font-size: 13px; line-height: 1.8; color: #444; margin-bottom: 14px; }
+
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; }
+    .kpi { background: #f7f9fc; border-left: 4px solid #e94560; padding: 16px 20px; border-radius: 4px; }
+    .kpi .value { font-size: 28px; font-weight: 700; color: #16213e; }
+    .kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 4px; }
+
+    table { width: 100%; border-collapse: collapse; margin-bottom: 36px; }
+    thead tr { background: #16213e; color: #fff; }
+    thead th { padding: 11px 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    tbody tr { border-bottom: 1px solid #eee; }
+    tbody tr:nth-child(even) { background: #f7f9fc; }
+    tbody td { padding: 10px 14px; font-size: 13px; }
+
+    .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    .badge-green { background: #d1f7e0; color: #1a7a45; }
+    .badge-red   { background: #fde8e8; color: #c0392b; }
+    .badge-blue  { background: #dbeafe; color: #1d4ed8; }
+
+    .footer { margin-top: 60px; text-align: center; font-size: 11px; color: #bbb; border-top: 1px solid #eee; padding-top: 18px; }
+  </style>
+</head>
+<body>
+
+  <div class="cover">
+    <div class="label">Reporte Oficial</div>
+    <h1>{{title}}</h1>
+    <div class="subtitle">{{subtitle}}</div>
+    <div class="meta">Período: {{period}} &nbsp;|&nbsp; Generado: {{generated_at}} &nbsp;|&nbsp; Autor: {{author}}</div>
+  </div>
+
+  {{#if summary}}
+  <h2>Resumen Ejecutivo</h2>
+  <div class="summary-grid">
+    {{#each summary}}
+    <div class="kpi">
+      <div class="value">{{value}}</div>
+      <div class="label">{{label}}</div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  {{#if description}}
+  <h2>Descripción</h2>
+  <p>{{description}}</p>
+  {{/if}}
+
+  {{#if sections}}
+  {{#each sections}}
+  <h2>{{title}}</h2>
+  <p>{{content}}</p>
+  {{/each}}
+  {{/if}}
+
+  {{#if data}}
+  <h2>Datos Detallados</h2>
+  <table>
+    <thead>
+      <tr>
+        {{#each data.headers}}
+        <th>{{this}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data.rows}}
+      <tr>
+        {{#each this}}
+        <td>{{this}}</td>
+        {{/each}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+
+  {{#if conclusions}}
+  <h2>Conclusiones</h2>
+  <p>{{conclusions}}</p>
+  {{/if}}
+
+  <div class="footer">
+    <p>Reporte generado por DocEngine-X · {{generated_at}}</p>
+  </div>
+
+</body>
+</html>

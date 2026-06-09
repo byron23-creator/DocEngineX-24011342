@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocEngine-X — Panel de Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon">⚡</span>
+        <span>Doc<strong>Engine</strong><span class="brand-x">X</span></span>
+      </div>
+      <div class="header-right">
+        <span class="ws-indicator" id="wsIndicator">
+          <span class="ws-dot"></span>
+          <span id="wsLabel">Conectando…</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ──────────────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- ── LEFT: GENERATOR ──────────────────────────────────────────── -->
+    <section class="card generator-card">
+      <div class="card-header">
+        <h2 class="card-title">Generar Documento</h2>
+        <p class="card-subtitle">Ingresa el JSON del payload y selecciona la plantilla</p>
+      </div>
+
+      <div class="form-group">
+        <label class="label" for="templateSelect">Tipo de plantilla</label>
+        <div class="select-wrapper">
+          <select class="select" id="templateSelect">
+            <option value="invoice">📄 Factura (invoice)</option>
+            <option value="report">📊 Reporte (report)</option>
+            <option value="certificate">🎓 Certificado (certificate)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <label class="label" for="jsonEditor">Payload JSON</label>
+          <button class="btn-ghost btn-sm" id="btnLoadExample" type="button">Cargar ejemplo</button>
+        </div>
+        <div class="editor-wrapper" id="editorWrapper">
+          <textarea
+            id="jsonEditor"
+            class="editor"
+            spellcheck="false"
+            placeholder='{"key": "value"}'
+          ></textarea>
+        </div>
+        <p class="editor-error" id="jsonError"></p>
+      </div>
+
+      <button class="btn btn-primary btn-generate" id="btnGenerate" type="button">
+        <span class="btn-icon">⚙</span>
+        <span id="btnGenerateText">Generar PDF</span>
+      </button>
+
+      <!-- In-progress toast for this panel -->
+      <div class="toast" id="genToast"></div>
+    </section>
+
+    <!-- ── RIGHT: HISTORY ────────────────────────────────────────────── -->
+    <section class="card history-card">
+      <div class="card-header">
+        <h2 class="card-title">Historial de Documentos</h2>
+        <div class="filters">
+          <div class="filter-group">
+            <label class="label sr-only" for="statusFilter">Filtrar por estado</label>
+            <div class="select-wrapper select-sm">
+              <select class="select select-sm" id="statusFilter">
+                <option value="">Todos los estados</option>
+                <option value="queued">Queued</option>
+                <option value="processing">Processing</option>
+                <option value="completed">Completed</option>
+                <option value="failed">Failed</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="btnRefresh" type="button" title="Recargar">
+            <span id="refreshIcon">↻</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="stats-bar" id="statsBar">
+        <div class="stat" id="statTotal"><span class="stat-value">–</span><span class="stat-label">Total</span></div>
+        <div class="stat stat-completed" id="statCompleted"><span class="stat-value">–</span><span class="stat-label">Completados</span></div>
+        <div class="stat stat-processing" id="statProcessing"><span class="stat-value">–</span><span class="stat-label">Procesando</span></div>
+        <div class="stat stat-failed" id="statFailed"><span class="stat-value">–</span><span class="stat-label">Fallidos</span></div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <table class="table" id="docsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Plantilla</th>
+              <th>Estado</th>
+              <th>Creado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="docsBody">
+            <tr class="table-empty">
+              <td colspan="5">
+                <div class="empty-state">
+                  <span class="empty-icon">📭</span>
+                  <p>No hay documentos aún.<br/>Genera uno desde el panel izquierdo.</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Error detail modal trigger (shown inline) -->
+      <div class="error-detail" id="errorDetail" style="display:none;">
+        <div class="error-detail-header">
+          <span>⚠ Detalle del error</span>
+          <button class="btn-ghost btn-sm" id="btnCloseError">✕</button>
+        </div>
+        <pre id="errorDetailText"></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── SCRIPTS ────────────────────────────────────────────────────────── -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
